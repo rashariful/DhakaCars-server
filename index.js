@@ -6,6 +6,7 @@ const dbConnect = require('./config/dbConnect');
 const port = process.env.PORT || 5000
 
 const authRouter = require("./routes/authRoute");
+const dutyDetails = require("./routes/dutyDetailsRoute")
 const bodyParser = require('body-parser');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
@@ -22,6 +23,7 @@ app.use(express.static("public"));
 
 
 app.use("/api/user", authRouter)
+app.use("/api/dutyDetails/", dutyDetails)
 app.use(notFound)
 app.use(errorHandler)
 
