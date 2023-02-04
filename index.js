@@ -5,13 +5,26 @@ const cors = require("cors")
 const dbConnect = require('./config/dbConnect');
 const port = process.env.PORT || 5000
 
+const authRouter = require("./routes/authRoute");
 const bodyParser = require('body-parser');
+const { notFound, errorHandler } = require('./middleware/errorHandler');
+
+
+
 dbConnect()
+
 // Middle ware
 app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.static("public"));
+
+
+
+app.use("/api/user", authRouter)
+app.use(notFound)
+app.use(errorHandler)
+
 
 app.get('/', (req, res) => {
     res.send('DhakaCars.com server is running')
