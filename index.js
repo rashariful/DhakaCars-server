@@ -23,7 +23,7 @@ app.use(express.static("public"));
 
 
 app.use("/api/user", authRouter)
-app.use("/api/dutyDetails/", dutyDetails)
+app.use("/api/dutyDetails", dutyDetails)
 app.use(notFound)
 app.use(errorHandler)
 
