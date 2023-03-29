@@ -32,4 +32,16 @@ const isAdmin = asyncHandler(async (req, res, next) => {
     }
 
 })
-module.exports = { authMiddleware, isAdmin }
+
+const isMerchant = asyncHandler(async (req, res, next) => {
+    const { email } = req.user;
+    const merchantUser = await User.findOne({ email });
+    if (merchantUser.role !== "merchant") {
+        throw new Error("You are not a Merchant")
+    } else {
+        next()
+    }
+
+})
+
+module.exports = { authMiddleware, isAdmin, isMerchant }

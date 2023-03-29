@@ -9,7 +9,7 @@ const createDutyDetails = asyncHandler(async (req, res) => {
         const newDutyDetails = await DutyDetails.create(req.body)
         res.json({
             success: true,
-            message: "Successfully created a Duty Details",
+            message: "Successfully Added a Duty Details",
             data: newDutyDetails
         })
     } catch (error) {
@@ -32,23 +32,23 @@ const getSingleDutyDetails = asyncHandler(async (req, res) => {
         throw new Error(error.message)
     }
 })
-// Get DutyDetails by id
-const getSingleDutyDetailsByEmail = asyncHandler(async (req, res) => {
+// Get DutyDetails by Email
+const getDutyDetailsByEmail = asyncHandler(async (req, res) => {
     try {
-        const email = req.query.email;
-        console.log(email)
+        const {email} = req.query;
         const query = {email: email}
         const findDutyDetailsEmail = await DutyDetails.find(query);
-        
-        res.json({
-            success: true,
-            message: "Get a single Duty Details by Email",
-            data: findDutyDetailsEmail
-        })
+            res.json({
+                success: true,
+                message: "Get Duty Details by Email",
+                data: findDutyDetailsEmail
+            })
     } catch (error) {
         throw new Error(error.message)
     }
 })
+
+
 // // Get all product
 const getAllDutyDetails = asyncHandler(async(req, res)=>{
     try {
@@ -63,7 +63,6 @@ const getAllDutyDetails = asyncHandler(async(req, res)=>{
     }
 })
 
-
 // update product
 const updateDutyDetails = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -71,7 +70,7 @@ const updateDutyDetails = asyncHandler(async (req, res) => {
         const updateaDutyDetails = await DutyDetails.findByIdAndUpdate(id, req.body, {
             new: true,
 
-        })
+        }) 
         res.json({
             success: true,
             message: "Successfully updated Duty Details",
@@ -150,5 +149,5 @@ module.exports = {
     getAllDutyDetails,
     updateDutyDetails,
     deleteDutyDetails,
-    getSingleDutyDetailsByEmail
+     getDutyDetailsByEmail
 }

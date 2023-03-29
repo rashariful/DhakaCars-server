@@ -4,18 +4,18 @@ const {
     createDutyDetails,
     getSingleDutyDetails,
     getAllDutyDetails,
-    getSingleDutyDetailsByEmail,
+  getDutyDetailsByEmail,
     updateDutyDetails,
     deleteDutyDetails
 } = require("../controllers/dutyDetailsCtrl")
 
-const { authMiddleware, isAdmin } = require("../middleware/authMiddleware")
+const { authMiddleware, isAdmin,  } = require("../middleware/authMiddleware")
 
-router.post("/", createDutyDetails)
-router.get("/:id", authMiddleware, isAdmin, getSingleDutyDetails)
-router.put("/:id", authMiddleware, isAdmin, updateDutyDetails)
-router.delete("/:id", authMiddleware, isAdmin, deleteDutyDetails)
 router.get("/", getAllDutyDetails)
-router.get("/", getSingleDutyDetailsByEmail)
+router.get("/merchant", getDutyDetailsByEmail)
+router.post("/",authMiddleware, createDutyDetails)
+router.get("/:id", getSingleDutyDetails)
+router.put("/:id", authMiddleware, isAdmin, updateDutyDetails)
+router.delete("/:id",  deleteDutyDetails)
 
 module.exports = router

@@ -18,23 +18,51 @@ var dutyDetailsSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    email: {
+        type: String,
+        required: true,
+    },
 
-    CNG: {
+    cng: {
         type: Number,
-
     },
     pickUpDate: {
-        type: Number,
-
-
+        type: String,
+        require: true
     },
-
-
+    startTime: {
+        type: String,
+        require: true
+    },
+    endTime: {
+        type: String,
+        require: true
+    },
+    startKm: {
+        type: Number,
+        require: true
+    },
+    endKm: {
+        type: Number,
+        require: true
+    },
+    overTime: {
+        type: Number,
+    },
+    tollParking: {
+        type: Number,
+    },
+    lunch: {
+        type: String,
+    },
+    dinner: {
+        type: String,
+    },
+    
 },
     {
         timestamps: true
     }
 );
-
 //Export the model
 module.exports = mongoose.model('DutyDetails', dutyDetailsSchema);

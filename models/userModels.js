@@ -1,51 +1,93 @@
-const mongoose = require('mongoose'); // Erase if already required
+const mongoose = require("mongoose");
+const validator = require("validator");
 const bcrypt = require("bcrypt");
-const { ObjectId } = require('mongodb');
 
-// Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true,
-    },
+const userSchema = mongoose.Schema(
+  {
     email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    mobile: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      validate: [validator.isEmail, "Plese Provide a valid Email"],
+      trim: true,
+      lowercase: true,
+      unique: true,
+      require: [true, "Email address is required"],
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      require: [true, "Password is required"],
+      validate: {
+        validator: (value) =>
+          validator.isStrongPassword(value, {
+            minLength: 6,
+            minLowercase: 3,
+            minNumber: 1,
+            minUppercase: 1,
+            minSymbols: 1,
+          }),
+        message: "Password {VALUE} is not strong enough.",
+      },
+    },
+    confirmPassword: {
+      type: String,
+      require: [true, "Please confirm your password"],
+      validate: {
+        validator: function (value) {
+          return value === this.password;
+        },
+        message: "Password don't match!",
+      },
     },
     role: {
-        type: String,
-        default: 'user'
+      type: String,
+      enum: ["buyer", "manager", "admin", "candidate"],
+      defualt: "buyer",
     },
-    cart: {
-        type: Array,
-        default: []
+    firstName: {
+      type: String,
+      require: [true, "Please provide a first name"],
+      trim: true,
     },
-    address: [{ type: mongoose.Schema.ObjectId, ref: "Address" }],
-    wishlist: [{ type: mongoose.Schema.ObjectId, ref: "Product" }]
-},
-    {
-        timestamps: true,
-    }
+    lastName: {
+      type: String,
+      require: [true, "Please provide a last name"],
+      trim: true,
+    },
+    contactNumber: {
+      type: String,
+      validate: [
+        validator.isMobilePhone,
+        "Please provide a valid contact number",
+      ],
+    },
+    shippingAddress: String,
+    imageURL: {
+      type: String,
+      validate: [validator.isURL, "Please provide a valid url"],
+    },
+    status: {
+      type: String,
+      enum: ["active", "inactive", "blocked"],
+      default: "active",
+    },
+    passwordChangedat: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+  },
+  {
+    timestamps: true,
+  }
 );
 
 userSchema.pre("save", async function (next) {
-    const salt = bcrypt.genSaltSync(10);
-    this.password = await bcrypt.hash(this.password, salt)
-})
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
-}
-//Export the model
-module.exports = mongoose.model('User', userSchema);
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = bcrypt.hashSync(this.password, salt);
+    this.password = hashedPassword;
+    this.confirmPassword = undefined;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = mongoose.model("User", userSchema);

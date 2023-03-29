@@ -1,5 +1,4 @@
-const { CURSOR_FLAGS } = require("mongodb");
-const { default: mongoose } = require("mongoose")
+const { mongoose } = require("mongoose")
 
 const dbConnect = () =>{
     try {
@@ -11,3 +10,5 @@ const dbConnect = () =>{
 }
 
 module.exports = dbConnect
+
+
