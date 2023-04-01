@@ -7,13 +7,17 @@ const DutyDetails = require("../models//dutyDetailsModels");
 const createDutyDetails = asyncHandler(async (req, res) => {
     try {
         const newDutyDetails = await DutyDetails.create(req.body)
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Successfully Added a Duty Details",
             data: newDutyDetails
         })
     } catch (error) {
-        throw new Error(error.message)
+        res.status(400).json({
+            success: true,
+            message: "Can't create duty details",
+            error: error.message
+        })
     }
 })
 
@@ -38,6 +42,7 @@ const getDutyDetailsByEmail = asyncHandler(async (req, res) => {
         const {email} = req.query;
         const query = {email: email}
         const findDutyDetailsEmail = await DutyDetails.find(query);
+     
             res.json({
                 success: true,
                 message: "Get Duty Details by Email",

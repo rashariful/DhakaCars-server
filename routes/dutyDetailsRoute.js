@@ -13,7 +13,7 @@ const { authMiddleware, isAdmin,  } = require("../middleware/authMiddleware")
 
 router.get("/", getAllDutyDetails)
 router.get("/merchant", getDutyDetailsByEmail)
-router.post("/",authMiddleware, createDutyDetails)
+router.post("/", createDutyDetails)
 router.get("/:id", getSingleDutyDetails)
 router.put("/:id", authMiddleware, isAdmin, updateDutyDetails)
 router.delete("/:id",  deleteDutyDetails)

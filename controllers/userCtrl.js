@@ -1,6 +1,6 @@
 const { createUserService, loginUserService, getUserService } = require("../services/user.services")
 const bcrypt = require("bcrypt");
-const { generateToken } = require("../config/jwtToken");
+const { generateToken } = require("../utils/jwtToken");
 
 exports.createUser = async(req, res)=>{
     try {
@@ -19,7 +19,6 @@ exports.createUser = async(req, res)=>{
         })
     }
 }
-
 exports.loginUser = async(req, res)=>{
     try {
         const {email, password} = req.body
@@ -91,7 +90,6 @@ exports.getUser = async(req, res)=>{
         })
     }
 }
-
 exports.getMe = async(req, res)=>{
     try {
         res.json(req.user)
