@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
         message: "Password {VALUE} is not strong enough.",
       },
     },
-    confirmPassword: {
+    confirmpassword: {
       type: String,
       require: [true, "Please confirm your password"],
       validate: {
@@ -42,14 +42,9 @@ const userSchema = mongoose.Schema(
       enum: ["buyer", "manager", "admin", "candidate"],
       defualt: "buyer",
     },
-    firstName: {
+    userName: {
       type: String,
-      require: [true, "Please provide a first name"],
-      trim: true,
-    },
-    lastName: {
-      type: String,
-      require: [true, "Please provide a last name"],
+      require: [true, "Please provide a user name"],
       trim: true,
     },
     contactNumber: {
