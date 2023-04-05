@@ -23,7 +23,7 @@ var dutyDetailsSchema = new mongoose.Schema({
         required: true,
     },
 
-    cng: {
+    cngCost: {
         type: Number,
     },
     pickUpDate: {

@@ -9,8 +9,8 @@ exports.getBookingServiceByEmail = async(email) =>{
     return result
 }
 
-exports.getBookingService = async()=>{
-    return result = await Booking.find({})
+exports.getBookingService = async(search)=>{
+    return result = await Booking.find({"carType": {$regex: ".*"+search+".*", $options: "i"}})
 }
 
 exports.getBookingServiceById = async(id) =>{

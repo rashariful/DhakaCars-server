@@ -19,7 +19,8 @@ exports.createBooking = async(req, res)=>{
 }
 exports.getBooking = async(req, res)=>{
     try {
-        const result = await getBookingService()
+        const {search} = req.query
+        const result = await getBookingService(search)
 
         res.status(200).json({
             status: "success",
