@@ -41,7 +41,7 @@ const getDutyDetailsByEmail = asyncHandler(async (req, res) => {
     try {
         const {email} = req.query;
         const query = {email: email}
-        const findDutyDetailsEmail = await DutyDetails.find(query).sort({data: 1});
+        const findDutyDetailsEmail = await DutyDetails.find(query).sort({pickUpDate: 1});
      
             res.json({
                 success: true,
