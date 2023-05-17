@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require("cors")
 const authRouter = require("./routes/authRoute");
 const dutyDetails = require("./routes/dutyDetailsRoute")
 const booking = require("./routes/bookingRoute")
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("DhakaCars is running");
+  res.send("DhakaCars server is running");
 });
 
 app.use("/api/v1/user", authRouter)

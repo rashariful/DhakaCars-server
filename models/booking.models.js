@@ -12,7 +12,7 @@ const bookingSchema = mongoose.Schema(
       require: [true, "Email address is required"],
     },
 
-    usrName: {
+    userName: {
       type: String,
       require: [true, "Please provide a user name"],
       trim: true,
