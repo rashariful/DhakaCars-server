@@ -116,7 +116,6 @@ exports.deleteBooking = async(req, res)=>{
 exports.updateBookingStatusController= async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  console.log(id, status)
   try {
     const updatedBooking = await updateBookingStatusService(id, status);
     res.json(updatedBooking);
