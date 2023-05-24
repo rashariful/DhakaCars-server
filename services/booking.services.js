@@ -22,3 +22,19 @@ exports.updateBookingService = async (updateid, data) =>{
 exports.deleteBookingService = async (deleteid) =>{
     return result = await Booking.deleteOne({_id: deleteid})
 }
+
+// new booking update status function
+
+exports.updateBookingStatusService = async (bookingId, newStatus) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(
+      bookingId,
+      { status: newStatus },
+      { new: true }
+    );
+    return booking;
+  } catch (error) {
+    throw new Error('Failed to update booking status');
+  }
+};
+

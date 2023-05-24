@@ -1,4 +1,4 @@
-const { createBookingService, getBookingService, getBookingServiceByEmail, getBookingServiceById, updateBookingService, deleteBookingService } = require("../services/booking.services")
+const { createBookingService, getBookingService, getBookingServiceByEmail, getBookingServiceById, updateBookingService, deleteBookingService, updateBookingStatusService } = require("../services/booking.services")
 
 exports.createBooking = async(req, res)=>{
     try {
@@ -111,4 +111,18 @@ exports.deleteBooking = async(req, res)=>{
         })
     }
 }
+
+// PUT /bookings/:id/status
+exports.updateBookingStatusController= async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  console.log(id, status)
+  try {
+    const updatedBooking = await updateBookingStatusService(id, status);
+    res.json(updatedBooking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
