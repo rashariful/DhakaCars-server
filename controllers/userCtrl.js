@@ -1,4 +1,4 @@
-const { createUserService, loginUserService, getUserService } = require("../services/user.services")
+const { createUserService, loginUserService, getUserService, getAdminByEmainService, getMerchantByEmainService } = require("../services/user.services")
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/jwtToken");
 
@@ -103,3 +103,42 @@ exports.getMe = async(req, res)=>{
     }
 }
 
+exports.getAdminByEmailController = async (req, res) =>{
+    try {
+        const {email} = req.params
+        const user = await getAdminByEmainService({email: email})
+        const isAdmin = user?.role === "admin";
+        console.log(email, isAdmin)
+        res.send({
+            isAdmin: isAdmin
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+exports.getMerchantByEmailController = async (req, res) =>{
+    try {
+        const {email} = req.params
+        const user = await getMerchantByEmainService({email: email})
+        const isMerchant = user?.role === "merchant";
+        console.log(email, isMerchant)
+        res.send({
+            isMerchant: isMerchant
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+exports.getUserByEmailController = async (req, res) =>{
+    try {
+        const {email} = req.params
+        const user = await getMerchantByEmainService({email: email})
+        const isUser = user?.role === "user";
+        console.log(email, isUser)
+        res.send({
+            isUser: isUser
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}

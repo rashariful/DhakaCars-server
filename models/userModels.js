@@ -39,7 +39,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["buyer", "manager", "admin", "candidate"],
+      enum: ["buyer", "manager", "admin", "candidate" ,"merchant", "user"],
       defualt: "buyer",
     },
     userName: {
