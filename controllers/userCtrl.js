@@ -105,10 +105,10 @@ exports.getMe = async(req, res)=>{
 
 exports.getAdminByEmailController = async (req, res) =>{
     try {
-        const {email} = req.params
-        const user = await getAdminByEmainService({email: email})
+        const email = req.params.email
+        const user = await getAdminByEmainService(email)
         const isAdmin = user?.role === "admin";
-        console.log(email, isAdmin)
+        // console.log(email, isAdmin)
         res.send({
             isAdmin: isAdmin
         })
@@ -119,7 +119,7 @@ exports.getAdminByEmailController = async (req, res) =>{
 exports.getMerchantByEmailController = async (req, res) =>{
     try {
         const {email} = req.params
-        const user = await getMerchantByEmainService({email: email})
+        const user = await getMerchantByEmainService(email)
         const isMerchant = user?.role === "merchant";
         console.log(email, isMerchant)
         res.send({
@@ -132,7 +132,7 @@ exports.getMerchantByEmailController = async (req, res) =>{
 exports.getUserByEmailController = async (req, res) =>{
     try {
         const {email} = req.params
-        const user = await getMerchantByEmainService({email: email})
+        const user = await getMerchantByEmainService(email)
         const isUser = user?.role === "user";
         console.log(email, isUser)
         res.send({
