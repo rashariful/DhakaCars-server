@@ -1,4 +1,4 @@
-const { createUserService, loginUserService, getUserService, getAdminByEmainService, getMerchantByEmainService } = require("../services/user.services")
+const { createUserService, loginUserService, getUserService, getAdminByEmainService, getMerchantByEmainService, getUserByEmainService } = require("../services/user.services")
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/jwtToken");
 
@@ -118,7 +118,7 @@ exports.getAdminByEmailController = async (req, res) =>{
 }
 exports.getMerchantByEmailController = async (req, res) =>{
     try {
-        const {email} = req.params
+        const email = req.params.email
         const user = await getMerchantByEmainService(email)
         const isMerchant = user?.role === "merchant";
         console.log(email, isMerchant)
@@ -131,12 +131,12 @@ exports.getMerchantByEmailController = async (req, res) =>{
 }
 exports.getUserByEmailController = async (req, res) =>{
     try {
-        const {email} = req.params
-        const user = await getMerchantByEmainService(email)
-        const isUser = user?.role ===  "buyer";
-        console.log(email, isUser)
+        const email = req.params.email
+        const user = await getUserByEmainService(email)
+        const isBuyer = user?.role ===  "buyer";
+        console.log(email, isBuyer)
         res.send({
-            isUser: isUser
+            isBuyer: isBuyer
         })
     } catch (error) {
         console.log(error.message)

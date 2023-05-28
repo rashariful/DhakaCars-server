@@ -22,6 +22,6 @@ exports.getMerchantByEmainService = async (email) =>{
     return merchant
 }
 exports.getUserByEmainService = async (email) =>{
-    const user = await User.findOne({email})
-    return user
+    const buyer = await User.findOne({email})
+    return buyer
 }

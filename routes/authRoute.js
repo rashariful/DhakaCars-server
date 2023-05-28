@@ -12,3 +12,4 @@ router.route("/merchant/:email").get(userController.getMerchantByEmailController
 router.route("/buyer/:email").get(userController.getUserByEmailController)
 
 module.exports = router
+
