@@ -133,7 +133,7 @@ exports.getUserByEmailController = async (req, res) =>{
     try {
         const {email} = req.params
         const user = await getMerchantByEmainService(email)
-        const isUser = user?.role === "user";
+        const isUser = user?.role ===  "buyer";
         console.log(email, isUser)
         res.send({
             isUser: isUser
